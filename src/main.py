@@ -1,10 +1,7 @@
 import os
-from discord import guild, message, user
 import discord
-from discord.abc import User
 from dotenv import load_dotenv
 from discord.ext import commands
-import mute
 
 load_dotenv()
 
@@ -36,6 +33,11 @@ async def admin(ctx, arg):
         perms = discord.Permissions(manage_channels=True, kick_members=True, ban_members=True)
         ctx.guild.edit
     ctx.add_roles(arg, 'Admin')
+
+@bot.command()
+async def mute(ctx, arg):
+    member = await discord.utils.find(lambda m: m.name == 'arg', channel.guild.members)
+    member.edit(mute)
 
 
 token = os.getenv("DISCORD_TOKEN")
