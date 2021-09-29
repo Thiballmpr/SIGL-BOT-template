@@ -32,9 +32,9 @@ async def admin(ctx, user: discord.Member):
     roles = ctx.guild.roles
     if not get(roles, name="Admin"):
         perms = discord.Permissions(manage_channels=True, kick_members=True, ban_members=True)
-        ctx.guild.create_roles(name='Admin', colour=discord.Colour(0x0062ff), permissions=perms)
-        ctx.send('Role created')
-    await user.add_roles('Admin')
+        await ctx.guild.create_role(name='Admin', colour=discord.Colour(0x0062ff), permissions=perms)
+    role = get(ctx.guild.roles, name="Admin")
+    await user.add_roles(role)
 
 @bot.command()
 async def mute(ctx, arg: discord.Member):
