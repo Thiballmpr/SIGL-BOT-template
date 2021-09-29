@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv
 from discord.ext import commands
+
+load_dotenv()
 
 bot = commands.Bot(
     command_prefix="!",  # Change to desired prefix
@@ -17,5 +20,5 @@ async def on_ready():  # When the bot is ready
 async def pong(ctx):
     await ctx.send('pong')
 
-token = "ODkyODI0NDAzNTA5OTIzOTQw.YVShhQ.hgANxfphf88RHGS6Z_5rpmoWbpA"
+token = os.getenv("DISCORD_TOKEN")
 bot.run(token)  # Starts the bot
