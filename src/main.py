@@ -1,7 +1,6 @@
 import os
-from discord import guild, message, permissions, user
 import discord
-from discord.abc import User
+from discord.member import Member
 from dotenv import load_dotenv
 from discord.ext import commands
 from discord.utils import get
@@ -29,13 +28,17 @@ async def name(ctx):
     await ctx.send(ctx.author)
 
 @bot.command()
-async def admin(ctx, arg):
+async def admin(ctx, user: discord.Member):
     roles = ctx.guild.roles
     if not get(roles, name="Admin"):
         perms = discord.Permissions(manage_channels=True, kick_members=True, ban_members=True)
         ctx.guild.create_roles(name='Admin', colour=discord.Colour(0x0062ff), permissions=perms)
         ctx.send('Role created')
-    arg.add_roles(arg, 'Admin')
+    await user.add_roles('Admin')
+
+@bot.command()
+async def mute(ctx, arg: discord.Member):
+    await arg.edit(mute=True)
 
 
 token = os.getenv("DISCORD_TOKEN")
