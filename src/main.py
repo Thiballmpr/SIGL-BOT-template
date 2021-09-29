@@ -40,6 +40,10 @@ async def admin(ctx, user: discord.Member):
 async def mute(ctx, arg: discord.Member):
     await arg.edit(mute=True)
 
+@bot.command()
+async def ban(ctx, user: discord.Member):
+    await user.ban()
+
 
 token = os.getenv("DISCORD_TOKEN")
 bot.run(token)  # Starts the bot
